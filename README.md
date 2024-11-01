@@ -1,4 +1,4 @@
-# talbot-analysis File Organization
+# talbot-analysis organization
 
 #### General Process Outline:
 1. __Reference Correction__ - reference correction using the Simple Improved Reference Subtraction (SIRS) algorithm
@@ -31,7 +31,7 @@ This script calculates weights from a set of darks. Line 14 is the directory wit
 
 #### automated_sirs_correction.jl
 
-This script uses the weights calculated in the previous file to correct the spot files. Line 16 is the directory with the files with spots, Line 31 is the weights file, and Line 49 has the output directory and file names. The first argument in Line 42 is the number of up-the-ramp samples in the spot exposures (in this case, 3), and Line 25 is where I adjust for the DCL data format. This can take several hours to run. The resulting 4900 corrected files are in `talbot_sirs_corrected2/`
+This script uses the weights calculated in the previous file to correct the spot files. Line 16 is the directory with the files with spots, Line 31 is the weights file, and Line 49 has the output directory and file names. The first argument in Line 42 is the number of up-the-ramp samples in the spot exposures (in this case, 3), and Line 25 is where I adjust for the DCL data format. This can take several hours to run.
 
 #### automated_sirs_darks_correction.jl
 
@@ -43,12 +43,14 @@ One thing to note is that SIRS corrections results in no brightness having a flu
 
 First, I found the median value of each pixel from all 5 corrected dark files. This code is in `darks_median.ipynb`, with the result as `talbot_darks_medians.fits`
 
-Then, I subtracted the median dark image from each of the reference corrected spot images. This code is in `automated_background_correction.ipynb`, with the resulting 4900 files in `talbot_background_corrected/`
+`script_background_correction.py` - subtracts the median dark image from each of the reference corrected spot images
 
 ### Spot Detection
 
-`automated_aperture.ipynb` - the full automated process for spot detection with DAO Starfinder. Most of this code is adapted from Neil's original code. The resulting 4900 csv files are in `talbot_starfinder_full_results/`, with individual demonstrations/explanations of the code in `aperture.ipynb`.
+`script_aperture.py` - the full automated process for spot detection with DAO Starfinder. Most of this code is adapted from Neil's original code.
+__may need to change aperture radius if spot size has changed__
 
 ### Matching
 
-I used the KDTree nearest neighbors algorithm from scipy to conduct pairwise matching of spots across exposures. `automated_starfinder_full_matching.ipynb` - the full automated matching of the tables from DAO Starfinder, follows the same process as the previous matching code. The resulting final array is `starfinder_datacube.npy`.
+`script_starfinder_full_matching.py` - the full automated matching of the tables from DAO Starfinder, results in the final datacube.
+__may need to change distance upper limit if spacing between spots has changed__
