@@ -17,9 +17,9 @@ datadir = 'talbot_background_corrected'
 
 files = os.listdir(datadir)
 
-Aperture_Photometry_Radius = 2 * np.sqrt(2) # based on max radius needed for 9 pixel box if center is edge of pixel
-Annulus_R_in = 3
-Annulus_R_out = 3.75
+Aperture_Photometry_Radius = 2 * np.sqrt(2) # radius containing spot, based on max radius needed for 9 pixel box if center is edge of pixel
+Annulus_R_in = 3 # inner radius for local background
+Annulus_R_out = 3.75 # outer radius for local background
 FWHM = 1.3
 R_mask = 500
 
