@@ -48,9 +48,13 @@ First, I found the median value of each pixel from all 5 corrected dark files. T
 ### Spot Detection
 
 `script_aperture.py` - the full automated process for spot detection with DAO Starfinder. Most of this code is adapted from Neil's original code.
-__may need to change aperture radius if spot size has changed__
+__may need to change aperture radius if spot size and spacing between spots has changed__ - this can be found on lines 20-22
+- line 20: aperture radius containing spot, currently at ~2.8 pixels based on assumption that spot is contained in a 3x3 pixel box
+- line 21: radius where local background measurement starts, currently at 3 pixels
+- line 22: radius where local background measurement ends, currently at 3.75 pixels, based on assumption that next spot's flux starts at about 4 pixels away from center of first spot
 
 ### Matching
 
 `script_starfinder_full_matching.py` - the full automated matching of the tables from DAO Starfinder, results in the final datacube.
-__may need to change distance upper limit if spacing between spots has changed__
+__may need to change distance upper limit if positional changes between exposures has changed__ - this can be found on line 74
+- controlled by the distance_bound argument in function, currently at 3 based on assumption that a spot centroid does not move more than 3 pixels between exposures
