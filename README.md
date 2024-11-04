@@ -43,18 +43,20 @@ One thing to note is that SIRS corrections results in no brightness having a flu
 
 First, I found the median value of each pixel from all 5 corrected dark files. This code is in `script_darks_median.py`, with the result as `talbot_darks_medians.fits`
 
-`script_background_correction.py` - subtracts the median dark image from each of the reference corrected spot images
+`script_background_correction.py` - subtracts the median dark image from each of the reference corrected spot images, takes in sirs corrected data `talbot_sirs_corrected2/` (line 6) resulting data in `talbot_background_corrected/` (line 12)
 
 ### Spot Detection
 
-`script_aperture.py` - the full automated process for spot detection with DAO Starfinder. Most of this code is adapted from Neil's original code.
+`script_aperture.py` - the full automated process for spot detection with DAO Starfinder. Most of this code is adapted from Neil's original code. Takes in the background corrected files (from `talbot_background_corrected/`, line 16)
 __may need to change aperture radius if spot size and spacing between spots has changed__ - this can be found on lines 20-22
 - line 20: aperture radius containing spot, currently at ~2.8 pixels based on assumption that spot is contained in a 3x3 pixel box
 - line 21: radius where local background measurement starts, currently at 3 pixels
 - line 22: radius where local background measurement ends, currently at 3.75 pixels, based on assumption that next spot's flux starts at about 4 pixels away from center of first spot
 
+resulting csv files are in `talbot_starfinder_full_results/` (line 70)
+
 ### Matching
 
-`script_starfinder_full_matching.py` - the full automated matching of the tables from DAO Starfinder, results in the final datacube.
+`script_starfinder_full_matching.py` - the full automated matching of the tables (`talbot_starfinder_full_results/`, line 7) from DAO Starfinder, results in the final datacube called `starfinder_datacube.npy` (line 99).
 __may need to change distance upper limit if positional changes between exposures has changed__ - this can be found on line 74
 - controlled by the distance_bound argument in function, currently at 3 based on assumption that a spot centroid does not move more than 3 pixels between exposures
