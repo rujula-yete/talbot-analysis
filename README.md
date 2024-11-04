@@ -27,7 +27,7 @@ The files to be run are:
 
 #### sirs.jl
 
-This script calculates weights from a set of darks. Line 14 is the directory with the darks, Line 15 is the output directory, Line 17 is the list of files, and Line 48 is the output file name (there is only 1 resulting file). The last argument in Line 19 should the the number of up-the-ramp samples in the dark exposures (in this case, 101), and Line 34 is where I adjust for the DCL data format. This can take a while to run (about half an hour). My resulting weights file is `talbot_sirs_results/talbot_sirs_result.jld`
+This script calculates weights from a set of darks. Line 14 is the directory with the darks, Line 15 is the output directory, Line 17 is the list of files, and Line 48 is the output file name (there is only 1 resulting file). The last argument in Line 19 should the the number of up-the-ramp samples in the dark exposures (in this case, 101), and Line 34 is where I adjust for the DCL data format. This can take a while to run (about half an hour). My resulting weights file on Adapt is `talbot_sirs_results/talbot_sirs_result.jld`
 
 #### automated_sirs_correction.jl
 
@@ -41,7 +41,7 @@ One thing to note is that SIRS corrections results in no brightness having a flu
 
 ### Background Correction
 
-First, I found the median value of each pixel from all 5 corrected dark files. This code is in `darks_median.ipynb`, with the result as `talbot_darks_medians.fits`
+First, I found the median value of each pixel from all 5 corrected dark files. This code is in `script_darks_median.py`, with the result as `talbot_darks_medians.fits`
 
 `script_background_correction.py` - subtracts the median dark image from each of the reference corrected spot images
 
